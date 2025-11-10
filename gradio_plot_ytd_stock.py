@@ -1,7 +1,6 @@
 import gradio as gr
 import yfinance as yf
 import matplotlib.pyplot as plt
-import re
 import string
 
 from datetime import datetime
