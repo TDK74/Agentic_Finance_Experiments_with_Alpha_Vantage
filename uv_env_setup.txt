@@ -39,7 +39,7 @@ pip install uv --upgrade
 
 
 7. Install required packages:
-uv pip install alpha_vantage matplotlib pandas yfinance
+uv pip install alpha_vantage gradio matplotlib pandas yfinance
 or
 uv pip install -r requirements_finance_env.txt (or your_requirements file)
 
@@ -47,8 +47,8 @@ uv pip install -r requirements_finance_env.txt (or your_requirements file)
 uv pip freeze > requirements_freeze.txt
 
 
-8. Verify everything works: 
-python -c "import pandas, yfinance, matplotlib, alpha_vantage; print('All good!')"
+8. Verify everything works:
+python -c "import pandas, yfinance, matplotlib, alpha_vantage, gradio; print('All good!')"
 
 
 Ready to rock-n-roll:
