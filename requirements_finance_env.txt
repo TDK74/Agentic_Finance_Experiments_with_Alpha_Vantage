@@ -1,4 +1,5 @@
 alpha_vantage
+gradio
 matplotlib
 numpy
 pandas
