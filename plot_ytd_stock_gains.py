@@ -1,6 +1,5 @@
 import yfinance as yf
 import matplotlib.pyplot as plt
-import pandas as pd
 
 
 # Fetch stock data for NVDA and IBM from the start of 2025 to October 29, 2025
