@@ -13,8 +13,8 @@ It contains Python scripts that explore stock data using the Alpha Vantage API, 
 - `fetch_basic_daily_stock_data.py` – plots YTD gains for NVDA and SLYG using basic daily data from Alpha Vantage.
 - `fetch_ytd_stock_data_with_alpha_vantage.py` – attempts to use adjusted daily data (premium endpoint); may fail with demo API key.
 - `fetch_ytd_stock_data_with_AV_enhanced.py` – attempts to use adjusted daily data (premium endpoint) then switch to basic daily data if fails.
-- `gradio_plot_ytd_stock.py` - fetches financial data and visualises the results using Gradio.
-- `gradio_ytd_stock_data_with_AV.py` - fetches financial data using 'yfinance' (no API key needed), calculates year-to-date (YTD) gains using formulas, plots them, and visualises the results using Gradio
+- `gradio_plot_ytd_stock.py` - fetches financial data using 'yfinance' (no API key needed), calculates year-to-date (YTD) gains using formulas, plots them, and visualises the results using Gradio.
+- `gradio_ytd_stock_data_with_AV.py` - attempts to use adjusted daily data (premium endpoint) then switch to basic daily data if fails, and visualises the results using Gradio.
 - `install_alpha_vantage.py` - checks for and installs the 'alpha_vantage' if missing; and prints a link to get a free API key.
 - `install_stock_libraries.py` - checks for and installs 'yfinance' and 'matplotlib' if missing; useful for quick setup.
 - `plot_ytd_stock_gains.py` - fetches NVDA and IBM data using 'yfinance' (no API key needed), calculates YTD gains using formulas, and plots them.
