@@ -1,6 +1,9 @@
 alpha_vantage
+autogen
 gradio
 matplotlib
 numpy
+ollama
 pandas
+pyautogen
 yfinance
