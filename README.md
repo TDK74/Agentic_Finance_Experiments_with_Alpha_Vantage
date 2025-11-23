@@ -28,6 +28,7 @@ You can explore the course here:
 - `install_alpha_vantage.py` - checks for and installs the 'alpha_vantage' if missing; and prints a link to get a free API key.
 - `install_stock_libraries.py` - checks for and installs 'yfinance' and 'matplotlib' if missing; useful for quick setup.
 - `ollama_manager.py` – utility functions to check for available Ollama models and trigger model startup via local API; used as backend logic for Gradio interface.
+- `ollama_manager_enhanced.py` – utility functions to check for available Ollama models and trigger model startup via local API; used as backend logic for Gradio interface; enhanced version.
 - `plot_ytd_stock_gains.py` - fetches NVDA and IBM data using 'yfinance' (no API key needed), calculates YTD gains using formulas, and plots them.
 - `test_fetch_stock_data.py` - tests if 'yfinance' can fetch data for a given ticker; useful for verifying API access and data availability.
 
