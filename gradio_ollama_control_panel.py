@@ -56,7 +56,7 @@ def refresh_handler():
         return gr.update(choices = names), f"Found {len(names)} model(s)."
 
     except Exception as e:
-        return gr.update(choices=[]), f"❌ Failed to connect to Ollama: {e}"
+        return gr.update(choices = []), f"❌ Failed to connect to Ollama: {e}"
 
 
 def status_handler():
@@ -75,7 +75,7 @@ def chat_handler(selected_model, manual_name, prompt):
         return "⚠️ No model selected.", gr.update(value="")
 
     try:
-        client = Client(host="http://localhost:11434")
+        client = Client(host = "http://localhost:11434")
         response = client.generate(model = use, prompt = prompt)
 
         return response["response"], gr.update(value = "")
@@ -86,10 +86,6 @@ def chat_handler(selected_model, manual_name, prompt):
 
 # --- Gradio UI ---
 with gr.Blocks() as demo:
-    # gr.Markdown("## Ollama Control Panel\nStart, stop, check status, and chat with models.  \n"
-    #             "Refresh the list, choose a model and then press Start button.  \n"
-    #             "If Ollama is not running, the list will be empty.  \n"
-    #             "**To stop the app, press *Ctrl+C* in the terminal!**")
     gr.Markdown("""
                 ## 💻🧠🖥 Ollama Control Panel
 
