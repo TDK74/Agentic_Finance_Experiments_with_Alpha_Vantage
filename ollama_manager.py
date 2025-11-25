@@ -30,14 +30,25 @@ def start_model(model_name = "mistral:7b"):
         raise
 
 
-def stop_model():
-    """Stop the Ollama server (optional)."""
-    # Ollama usually runs as a service, so stopping is not always needed
-    # But you can stop the service if you want
-    pass
+def stop_model(model_name: str) -> bool:
+    """Stop a running Ollama model via CLI."""
+    try:
+        result = subprocess.run(["ollama", "stop", model_name],
+                                capture_output = True, text = True, timeout = 10)
+
+        if result.returncode == 0:
+            print(f"Model {model_name} stopped successfully.")
+
+            return True
+
+        else:
+            raise RuntimeError(result.stderr.strip())
+
+    except Exception as e:
+        raise RuntimeError(f"Failed to stop model '{model_name}': {e}") from e
 
 
 if __name__ == "__main__":
     start_model("phi3.5:3.8b")
-    model_exists("phi3.5:3.8b")
+    model_exists("gemma2:2b")
     list_model_names()
