@@ -1,12 +1,12 @@
 import datetime
 import traceback
-
 import gradio as gr
 
 from autogen import ConversableAgent, AssistantAgent
 
-# Configs we want to test
-llm_config_writer = {"model" : "gemma2:2b"}
+
+# Configs to be tested
+llm_config_writer = {"model" : "gemma2:2b"}    # {"model" : "mistral:7b"}
 llm_config_executor = None
 
 def test_agent_configs(writer_cfg = None, executor_cfg = None):
@@ -15,7 +15,7 @@ def test_agent_configs(writer_cfg = None, executor_cfg = None):
     safe initiating message. Returns (status_message, error_trace_or_empty).
     """
     try:
-        # 1) Check if we can instantiate the AssistantAgent (writer)
+        # 1) Check if it can instantiate the AssistantAgent (writer)
         writer = AssistantAgent(
                                 name = "test_writer",
                                 llm_config = writer_cfg,
@@ -23,7 +23,7 @@ def test_agent_configs(writer_cfg = None, executor_cfg = None):
                                 human_input_mode = "NEVER",
                                 )
 
-        # 2) Check if we can instantiate the ConversableAgent (executor)
+        # 2) Check if it can instantiate the ConversableAgent (executor)
         executor = ConversableAgent(
                                     name = "test_executor",
                                     llm_config = False,
@@ -56,7 +56,7 @@ def test_agent_configs(writer_cfg = None, executor_cfg = None):
                 tb
                 )
 
-# --- Gradio interface for quick local testing ---
+# --- Gradio interface for quick local testing --- #
 with gr.Blocks() as demo:
     gr.Markdown("### Quick AutoGen + Ollama config smoke-test\nPress the button to test only the " \
                 "agent setup and a minimal initiate_chat call.")
