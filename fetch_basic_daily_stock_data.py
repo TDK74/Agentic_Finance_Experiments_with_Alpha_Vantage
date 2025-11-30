@@ -5,6 +5,14 @@ from alpha_vantage.timeseries import TimeSeries
 
 
 def fetch_and_plot_stocks(api_key):
+    """
+    Fetches daily stock data for for a given ticker анд for the specified period from Alpha Vantage,
+    calculates year-to-date (YTD) percentage gains, and plots the results.   
+    Args:
+        api_key (str): Alpha Vantage API key for authentication.
+    Returns:
+        None: Saves plot to file and displays it.
+    """
     ts = TimeSeries(key = api_key, output_format = 'pandas')
 
     # Fetch the basic daily data for NVDA and SLYG from the Alpha Vantage service
