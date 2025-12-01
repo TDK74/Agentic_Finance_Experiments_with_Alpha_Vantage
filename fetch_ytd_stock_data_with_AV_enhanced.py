@@ -5,6 +5,17 @@ from alpha_vantage.timeseries import TimeSeries
 
 
 def get_stock_data(ts, symbol, start_date, end_date):
+    """
+    Fetches daily stock prices for a given symbol and returns cumulative
+    percentage gains for the selected date range.
+    Args:
+        ts (TimeSeries): Alpha Vantage TimeSeries client.
+        symbol (str): Stock ticker symbol.
+        start_date (str): Start date (YYYY-MM-DD).
+        end_date (str): End date (YYYY-MM-DD).
+    Returns:
+        pandas.Series: Cumulative percentage gains indexed by date.
+    """
     try:
         data, _ = ts.get_daily_adjusted(symbol = symbol, outputsize = 'full')
         column = '5. adjusted close'
@@ -28,6 +39,13 @@ def get_stock_data(ts, symbol, start_date, end_date):
 
 
 def fetch_and_plot_stocks(api_key):
+    """
+    Retrieves YTD gain data for NVDA and AMD and generates a comparison plot.
+    Args:
+        api_key (str): Alpha Vantage API key.
+    Returns:
+        None: Saves and displays the plot.
+    """
     ts = TimeSeries(key = api_key, output_format = 'pandas')
 
     nvda_data = get_stock_data(ts, 'NVDA', '2025-01-01', '2025-10-29')
@@ -50,3 +68,4 @@ def fetch_and_plot_stocks(api_key):
 # Use your Alpha Vantage API Key here
 api_key = "YOUR_API_KEY"  # Replace "YOUR_API_KEY" with your actual API key
 fetch_and_plot_stocks(api_key)
+
