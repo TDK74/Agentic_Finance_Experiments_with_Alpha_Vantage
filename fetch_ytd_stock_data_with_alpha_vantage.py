@@ -6,6 +6,13 @@ from alpha_vantage.timeseries import TimeSeries
 
 
 def fetch_and_plot_stocks(api_key):
+    """
+    Retrieves YTD gain data for NVDA and AMD and generates a comparison plot.
+    Args:
+        api_key (str): Alpha Vantage API key.
+    Returns:
+        None: Saves and displays the plot.
+    """
     ts = TimeSeries(key = api_key, output_format = 'pandas')
 
     # Fetch the data for NVDA and AMD from the start of the year to the date provided
