@@ -15,6 +15,14 @@ def clean_model_name(name: str) -> str:
 
 
 def start_handler(selected_model, manual_name):
+    """
+    Starts the specified model in Ollama (selected or manually entered).
+    Args:
+        selected_model (str): Model name from dropdown.
+        manual_name (str): Model name entered manually.
+    Returns:
+        tuple[str, gr.update]: Status message and image update (None).
+    """
     use = manual_name.strip() or selected_model or ""
 
     if not use:
@@ -33,6 +41,14 @@ def start_handler(selected_model, manual_name):
 
 
 def stop_handler(selected_model, manual_name):
+    """
+    Stops the specified model in Ollama.
+    Args:
+        selected_model (str): Model name from dropdown.
+        manual_name (str): Model name entered manually. 
+    Returns:
+        tuple[str, gr.update]: Status message and image update (None).
+    """
     use = manual_name.strip() or selected_model or ""
 
     if not use:
@@ -47,6 +63,11 @@ def stop_handler(selected_model, manual_name):
 
 
 def refresh_handler():
+    """
+    Connects to Ollama and retrieves the list of installed models.
+    Returns:
+        tuple[gr.update, str]: Dropdown choices update and status message.
+    """
     try:
         names = list_model_names()
 
@@ -69,6 +90,15 @@ def status_handler():
 
 
 def chat_handler(selected_model, manual_name, prompt):
+    """
+    Sends a prompt to the selected Ollama model for chat completion.
+    Args:
+        selected_model (str): Model name from dropdown.
+        manual_name (str): Model name entered manually.
+        prompt (str): User's input prompt.
+    Returns:
+        tuple[str, gr.update]: Model's response and cleared input field update.
+    """
     use = manual_name.strip() or selected_model or ""
 
     if not use:
@@ -138,3 +168,4 @@ with gr.Blocks() as demo:
 
 if __name__ == "__main__":
     demo.launch()
+
