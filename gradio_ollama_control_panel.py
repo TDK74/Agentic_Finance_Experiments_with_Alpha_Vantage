@@ -8,6 +8,13 @@ from ollama_manager import list_model_names, model_exists, start_model, stop_mod
 
 # --- Helpers ---
 def clean_model_name(name: str) -> str:
+    """
+    Cleans a model name by removing special characters.
+    Args:
+        name (str): Raw model name string.
+    Returns:
+        str: Cleaned model name with only alphanumeric characters, dots, colons, and hyphens.
+    """
     if not name:
         return ""
 
@@ -45,7 +52,7 @@ def stop_handler(selected_model, manual_name):
     Stops the specified model in Ollama.
     Args:
         selected_model (str): Model name from dropdown.
-        manual_name (str): Model name entered manually. 
+        manual_name (str): Model name entered manually.
     Returns:
         tuple[str, gr.update]: Status message and image update (None).
     """
@@ -77,10 +84,15 @@ def refresh_handler():
         return gr.update(choices = names), f"Found {len(names)} model(s)."
 
     except Exception as e:
-        return gr.update(choices = []), f"❌ Failed to connect to Ollama: {e}"
+        return gr.update(choices=[]), f"❌ Failed to connect to Ollama: {e}"
 
 
 def status_handler():
+    """
+    Gets the current status of Ollama processes.
+    Returns:
+        str: Status output from Ollama or error message.
+    """
     try:
         result = subprocess.run(["ollama", "ps"], capture_output = True, text = True, timeout = 10)
         return result.stdout.strip()
@@ -105,7 +117,7 @@ def chat_handler(selected_model, manual_name, prompt):
         return "⚠️ No model selected.", gr.update(value="")
 
     try:
-        client = Client(host = "http://localhost:11434")
+        client = Client(host="http://localhost:11434")
         response = client.generate(model = use, prompt = prompt)
 
         return response["response"], gr.update(value = "")
@@ -116,40 +128,47 @@ def chat_handler(selected_model, manual_name, prompt):
 
 # --- Gradio UI ---
 with gr.Blocks() as demo:
-    gr.Markdown("""
-                ## 💻🧠🖥 Ollama Control Panel
+    with gr.Row():
+        gr.Markdown("""
+                    # 💻🧠🖥 Ollama Control Panel
+                    ## Start, stop, check status, and chat with models.
+                    """)
+        gr.Markdown("""
+                    **⚠️ Important:**
+                    - Press **Refresh** to load available models.
+                    - If **Ollama is not running**, the list will be empty and actions will fail.
+                    - You must start Ollama before using this panel.
 
-                Start, stop, check status, and chat with models.
-
-                **⚠️ Important:**
-                - Press **Refresh** to load available models.
-                - If **Ollama is not running**, the list will be empty and actions will fail.
-                - You must start Ollama before using this panel.
-
-                **To stop the app, press _Ctrl+C_ in the terminal!**
-                """)
-
+                    **To stop the app, press _Ctrl+C_ in the terminal!**
+                    """)
 
     with gr.Row():
-        models_dd = gr.Dropdown(choices = [], label = "Choose Ollama model")
-        refresh_btn = gr.Button("🔄 Refresh models")
+        models_dd = gr.Dropdown(choices = [], label = "Choose Ollama model", scale = 3)
+        refresh_btn = gr.Button("🔄 Refresh models", scale = 1)
 
     with gr.Row():
         custom_input = gr.Textbox(label = "Or enter model name manually",
-                                  placeholder = "e.g. mistral:7b")
-        start_btn = gr.Button("▶️ Start model")
-        stop_btn = gr.Button("⏹ Stop model")
+                                  placeholder = "e.g. mistral:7b", scale = 3)
+        start_btn = gr.Button("▶️ Start model", scale = 1)
 
-    info = gr.Textbox(label = "Message", interactive = False, lines = 3)
+    with gr.Row():
+        info = gr.Textbox(label = "Message", interactive = False, lines = 2, scale = 3)
+        stop_btn = gr.Button("⏹ Stop model", scale = 1)
+
     out_image = gr.Image(label = "(no image)", visible = False)
 
-    status_btn = gr.Button("🔍 Show status")
-    status_box = gr.Textbox(label = "Status", interactive = False, lines = 10)
+    with gr.Row():
+        status_box = gr.Textbox(label = "Status", interactive = False, lines = 3, scale = 3)
+        status_btn = gr.Button("🔍 Show status", scale = 1)
 
-    gr.Markdown("### Chat with model")
-    chat_input = gr.Textbox(label = "Enter prompt", placeholder = "Ask something...")
-    chat_btn = gr.Button("💬 Send prompt")
-    chat_output = gr.Textbox(label = "Model response", interactive = False, lines = 10)
+    with gr.Row():
+        gr.Markdown("## Chat below with the selected model. ⬇")
+        gr.Markdown("### Use 'Send prompt' button to prompt to the model. ➡")
+        chat_btn = gr.Button("💬 Send prompt", scale = 1)
+
+    with gr.Row():
+        chat_input = gr.Textbox(label = "Enter prompt", placeholder = "Ask something...", lines = 6)
+        chat_output = gr.Textbox(label = "Model response", interactive = False, lines = 10)
 
     # Wire buttons
     refresh_btn.click(fn = refresh_handler, inputs = None, outputs = [models_dd, info])
@@ -168,4 +187,3 @@ with gr.Blocks() as demo:
 
 if __name__ == "__main__":
     demo.launch()
-
