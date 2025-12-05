@@ -1,9 +1,9 @@
 alpha_vantage
-autogen
+autogen-agentchat~=0.2
 gradio
 matplotlib
 numpy
 ollama
 pandas
-pyautogen
+pyautogen==0.2.25
 yfinance
