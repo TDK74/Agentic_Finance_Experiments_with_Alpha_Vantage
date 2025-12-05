@@ -39,7 +39,7 @@ pip install uv --upgrade
 
 
 7. Install required packages:
-uv pip install alpha_vantage autogen gradio matplotlib numpy ollama pandas pyautogen yfinance
+uv pip install alpha_vantage autogen-agentchat~=0.2 gradio matplotlib numpy ollama pandas pyautogen==0.2.25 yfinance
 or
 uv pip install -r requirements_finance_env.txt (or your_requirements file)
 
@@ -48,7 +48,7 @@ uv pip freeze > requirements_freeze.txt
 
 
 8. Verify everything works:
-python -c "import alpha_vantage autogen gradio matplotlib numpy ollama pandas pyautogen yfinance; print('All good!')"
+python -c "import alpha_vantage, autogen, gradio, matplotlib, numpy, ollama, pandas, yfinance; print('All good!')"
 
 
 Ready to rock-n-roll :)
